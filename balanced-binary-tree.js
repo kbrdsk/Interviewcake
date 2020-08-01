@@ -16,19 +16,22 @@ class BinaryTreeNode {
   }
 }
 
-function isLeaf(node){
+function isLeaf(node) {
   return node.left === null && node.right === null;
 }
 
 function checkSuperbalance(binaryTree) {
+  if (!binaryTree) return true;
   let leafFound = false;
   let depthNodes = [binaryTree];
   let entireTreeScanned = false;
   while (!entireTreeScanned) {
     if (leafFound) return depthNodes.every(isLeaf);
     depthNodes = depthNodes.flatMap((node) => {
-      const childNodes = [node.left, node.right].filter(child => child !== null);
-      if(childNodes.length === 0) leafFound = true;
+      const childNodes = [node.left, node.right].filter(
+        (child) => child !== null
+      );
+      if (childNodes.length === 0) leafFound = true;
       return childNodes;
     });
   }
