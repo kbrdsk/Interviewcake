@@ -20,21 +20,22 @@ function isLeaf(node) {
   return node.left === null && node.right === null;
 }
 
+function expandNode(node) {
+  return [node.left, node.right].filter((child) => child !== null);
+}
+
 function checkSuperbalance(binaryTree) {
   if (!binaryTree) return true;
   let leafFound = false;
   let depthNodes = [binaryTree];
-  let entireTreeScanned = false;
-  while (!entireTreeScanned) {
-    if (leafFound) return depthNodes.every(isLeaf);
+  while (!leafFound) {
     depthNodes = depthNodes.flatMap((node) => {
-      const childNodes = [node.left, node.right].filter(
-        (child) => child !== null
-      );
+      const childNodes = expandNode(node);
       if (childNodes.length === 0) leafFound = true;
       return childNodes;
     });
   }
+  return depthNodes.every(isLeaf);
 }
 
 module.exports = { checkSuperbalance, BinaryTreeNode };
