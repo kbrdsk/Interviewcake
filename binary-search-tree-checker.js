@@ -27,20 +27,23 @@ function searchChecker(tree) {
 
   while (nodesToCheck.length > 0) {
     let { node, lowerBound, upperBound } = nodesToCheck.pop();
-    if (!node) continue;
     if (!inBounds(node, lowerBound, upperBound)) return false;
 
-    nodesToCheck.push({
-      node: node.left,
-      lowerBound,
-      upperBound: node.value,
-    });
+    if (node.left) {
+      nodesToCheck.push({
+        node: node.left,
+        lowerBound,
+        upperBound: node.value,
+      });
+    }
 
-    nodesToCheck.push({
-      node: node.right,
-      lowerBound: node.value,
-      upperBound,
-    });
+    if (node.right) {
+      nodesToCheck.push({
+        node: node.right,
+        lowerBound: node.value,
+        upperBound,
+      });
+    }
   }
 
   return true;
