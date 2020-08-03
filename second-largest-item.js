@@ -16,15 +16,15 @@ class BinaryTreeNode {
   }
 }
 
-function findSecondLargestItem(tree){
+function findSecondLargestItem(tree) {
   let largest = tree;
-  while(largest.right){
+  while (largest.right) {
     secondLargest = largest;
     largest = largest.right;
   }
-  if(largest.left){
+  if (largest.left) {
     secondLargest = largest.left;
-    while(secondLargest.right){
+    while (secondLargest.right) {
       secondLargest = largest.right;
     }
   }
